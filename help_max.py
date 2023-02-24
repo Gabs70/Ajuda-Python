@@ -387,6 +387,60 @@ quadrados_pares = (x**2 for x in numeros if x % 2 == 0)
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+# 📌 Yield em Generator Functions 📌
+
+''' A palavra-chave 'yield' é usada em uma generator function para produzir valores um de cada vez. 
+Quando a instrução 'yield' é executada, ela retorna um valor para o chamador e "pausa" a execução da função. 
+Quando o chamador solicita o próximo valor, a execução da função é retomada a partir do ponto em que parou, 
+continuando até a próxima instrução 'yield'. Esse processo continua até que a função termine ou atinja uma instrução 'return'.
+'''
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Try, Except, Else e Finally 📌
+
+''' 
+> try: A palavra-chave try é usada para definir um bloco de código que pode gerar uma exceção.
+
+> except: A palavra-chave except é usada para definir um bloco de código que é executado se uma exceção for gerada no bloco try.
+
+> else: A palavra-chave else é usada para definir um bloco de código que é executado se nenhum exceção for gerada no bloco try.
+
+> finally: A palavra-chave finally é usada para definir um bloco de código que é sempre executado, independentemente de uma exceção ter sido gerada ou não.'''
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Raise 📌
+
+''' Raise é uma palavra-chave usada para levantar ou lançar uma exceção explicitamente durante a execução de um programa. 
+Quando um erro ou condição excepcional é encontrada em uma parte do código, o programador pode usar a declaração raise para interromper o fluxo normal
+do programa e indicar que algo deu errado.'''
+
+# Sua sintaxe básica é: 
+# > raise [tipo_de_exceção]
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Import, From, As e '*' 📌
+
+# Import, from, as e * são palavras-chave usadas para gerenciar módulos e pacotes.
+
+# > import é usado para importar um módulo completo ou um pacote específico no código:
+import sys
+
+# > from é usado para importar um objeto específico (função, classe ou variável) de um módulo ou pacote:
+from sys import exit
+
+# > as é usado para renomear um módulo ou objeto importado para um nome mais conveniente: 
+import sys as s
+
+# > '*' é usado para importar todos os objetos de um módulo ou pacote, mas é geralmente considerado uma prática ruim, 
+# pois pode poluir o espaço de nomes do programa e dificultar a leitura e manutenção do código:
+from sys import *
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
