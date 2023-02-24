@@ -1,27 +1,3 @@
-# 📌 Valor Padrão 📌
-
-''' Um valor padrão é um valor que será usado para um parâmetro
-se nenhum valor for especificado quando a função for chamada.'''
-
-def calcular_volume_comprimento(largura, altura, profundidade=10):
-    volume = largura * altura * profundidade
-    return volume
-
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# 📌 NoneType 📌
-
-''' None é frequentemente usado para indicar que um valor não foi especificado
-ou que um objeto não possui um valor apropriado.'''
-
-def minha_funcao(a, b=None):
-    if b is not None:
-        return a + b
-    else:
-        return a
-
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 # 📌 Args 📌
 
 ''' *args é usado para passar um número variável de argumentos posicionais (ou seja, sem nome) para uma função.'''
@@ -32,20 +8,6 @@ def minha_funcao(*args):
 
 minha_funcao(1, 2, 3)  # Saída: 1 2 3
 minha_funcao("a", "b", "c")  # Saída: a b c
-
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# 📌 Kwargs 📌
-
-''' **kwargs é usado para passar um número variável de argumentos nomeados para uma função.'''
-
-def minha_funcao(**kwargs):
-    for chave, valor in kwargs.items():
-        print(chave, valor)
-
-minha_funcao(nome="João", idade=25)  # Saída: nome João, idade 25
-minha_funcao(cor="verde", tamanho="grande", material="algodão")  # Saída: cor verde, tamanho grande, material algodão
-
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 📌 Closure 📌
@@ -65,38 +27,31 @@ meu_contador = contador()
 meu_contador()  # Saída: 1
 meu_contador()  # Saída: 2
 meu_contador()  # Saída: 3
-
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📌 Funções de Ordem Superior 📌
+# 📌 Copy e DeepCopy 📌
 
-''' Funções que retornam outras funções são chamadas de funções de ordem superior.'''
+''' Uma cópia superficial de um objeto contém uma nova referência aos objetos filhos, portanto, a cópia e o original apontam para os mesmos objetos filhos. 
+Por outro lado, uma cópia profunda de um objeto contém novas cópias dos objetos filhos, recursivamente.
+'''
 
-def criar_funcao(mensagem):
-    def exibir_mensagem():
-        print(mensagem)
-    return exibir_mensagem
+import copy
 
-minha_funcao = criar_funcao("Olá, mundo!")
-minha_funcao()  # Saída: Olá, mundo!
+original = [[1, 2], [3, 4]]
+copia_superficial = copy.copy(original)
+copia_profunda = copy.deepcopy(original)
 
+# Altera um valor no objeto filho compartilhado
+original[0][1] = 5
 
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# A alteração é refletida na cópia superficial
+print(copia_superficial)  # Saída: [[1, 5], [3, 4]]
 
-# 📌 Funções de Primeira Classe 📌
+# A alteração não é refletida na cópia profunda
+print(copia_profunda)  # Saída: [[1, 2], [3, 4]]
 
-''' As funções em Python são de primeira classe, o que significa que elas podem ser atribuídas a variáveis, 
-passadas como argumentos para outras funções e retornadas como resultados de outras funções.'''
-
-def aplicar_funcao(func, argumento):
-    return func(argumento)
-
-def dobrar(numero):
-    return numero * 2
-
-resultado = aplicar_funcao(dobrar, 5)
-print(resultado)  # Saída: 10
-
+''' Observe que a alteração em original é refletida em copia_superficial, mas não em copia_profunda. 
+Isso ocorre porque copia_superficial compartilha os objetos filhos com original, enquanto copia_profunda contém novas cópias dos objetos filhos.'''
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 📌 Dicionário e Métodos Úteis 📌
@@ -165,93 +120,26 @@ alunos.update(novos_alunos)
 
 # Remover todos os pares chave-valor do dicionário
 alunos.clear()
-
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📌 Copy e DeepCopy 📌
+# 📌 Dict e Set Comprehension 📌
 
-''' Uma cópia superficial de um objeto contém uma nova referência aos objetos filhos, portanto, a cópia e o original apontam para os mesmos objetos filhos. 
-Por outro lado, uma cópia profunda de um objeto contém novas cópias dos objetos filhos, recursivamente.
-'''
+''' Além de list comprehension, Python também suporta dicionário e set comprehension, que são construções semelhantes à list comprehension, 
+mas que criam dicionários e conjuntos em vez de listas.'''
 
-import copy
-
-original = [[1, 2], [3, 4]]
-copia_superficial = copy.copy(original)
-copia_profunda = copy.deepcopy(original)
-
-# Altera um valor no objeto filho compartilhado
-original[0][1] = 5
-
-# A alteração é refletida na cópia superficial
-print(copia_superficial)  # Saída: [[1, 5], [3, 4]]
-
-# A alteração não é refletida na cópia profunda
-print(copia_profunda)  # Saída: [[1, 2], [3, 4]]
-
-''' Observe que a alteração em original é refletida em copia_superficial, mas não em copia_profunda. 
-Isso ocorre porque copia_superficial compartilha os objetos filhos com original, enquanto copia_profunda contém novas cópias dos objetos filhos.'''
-
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# 📌 Tipo Set e suas Peculiaridades 📌
-
-''' Em Python, um set é um tipo de coleção de elementos únicos e não ordenados. Um conjunto é criado usando chaves {} ou a função set() e pode conter elementos de 
-qualquer tipo imutável, como números, strings e tuplas. O tipo set é mutável, o que significa que você pode adicionar, remover ou atualizar elementos em um conjunto.'''
-
-''' Algumas peculiaridades do tipo set em Python incluem:
-
-> O conjunto não mantém a ordem dos elementos, então você não pode acessar os elementos por índice.
-
-> O conjunto não pode conter elementos duplicados, portanto, se você tentar adicionar um elemento que já está no conjunto, ele não será adicionado novamente.
-
-> Você pode realizar operações de conjunto, como união, interseção e diferença, usando operadores ou métodos (|, &, -).
-
-> O conjunto é bastante eficiente para testar se um elemento está presente nele, pois o Python usa uma tabela de hash para pesquisar o elemento.
-
-> Você pode usar métodos como add(), remove(), discard(), pop() e clear() para adicionar, remover ou atualizar elementos em um conjunto.'''
-
-# Cria um conjunto com alguns elementos
-meu_set = {1, 2, 3, "quatro", (5, 6)}
-
-# Adiciona um novo elemento ao conjunto
-meu_set.add(7)
-
-# Remove um elemento do conjunto
-meu_set.remove(2)
-
-# Imprime o conjunto resultante
-print(meu_set)
-
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# 📌 Lambda 📌
-
-# Uma lambda é uma função anônima que pode ser definida em uma única linha de código e não precisa de um nome associado a ela.
-
-# A sintaxe para definir uma lambda em Python é a seguinte:
-
-lambda argumentos: None
-
-# > Onde argumentos é uma lista separada por vírgulas de parâmetros que a função espera receber, e None é o resultado que a função deve retornar.
-
-# Por exemplo, se você quiser definir uma função que recebe um número como entrada e retorna o dobro desse número, você poderia fazê-lo com a seguinte lambda:
-
-dobro = lambda x: x * 2
-
-# Agora você pode chamar essa função dobro passando um número como argumento e ela retornará o dobro desse número:
-
-resultado = dobro(3)
-print(resultado)  # Saída: 6'''
-
-'''As lambdas também podem ser usadas como argumentos de outras funções, como no caso da função map(),
- que aplica uma função a cada elemento de uma sequência e retorna uma nova sequência com os resultados:'''
+# Por exemplo, se você quiser criar um dicionário contendo o quadrado de cada número de uma lista, pode usar a seguinte dicionário comprehension:
 
 numeros = [1, 2, 3, 4, 5]
-dobro = lambda x: x * 2
-resultado = map(dobro, numeros)
-print(list(resultado))  # Saída: [2, 4, 6, 8, 10]
+quadrados = {x: x**2 for x in numeros}
 
+# > Nesse caso, o novo dicionário quadrados terá chaves correspondentes aos elementos da lista numeros e valores correspondentes aos quadrados desses elementos.
+
+# Já em set comprehension se você quiser criar um conjunto contendo apenas os números pares de uma lista, pode usar a seguinte set comprehension:
+
+numeros = [1, 2, 3, 4, 5]
+numeros_pares = {x for x in numeros if x % 2 == 0}
+
+# > Nesse caso, o novo conjunto numeros_pares conterá apenas os elementos da sequência que são divisíveis por 2, ou seja, os números pares.
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 📌 Empacotamento e Desempacotamento de Dicionários 📌 
@@ -287,7 +175,137 @@ a, b = meu_dict['a'], meu_dict['b']
 
 ''' > Observe que, ao desempacotar um dicionário, os nomes das variáveis devem corresponder exatamente às chaves do dicionário. 
 Se o dicionário contiver uma chave que não corresponde a uma variável, o Python lançará uma exceção.'''
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+# 📌 Filtro de Dados em List Comprehension 📌
+
+''' List comprehension também pode ser usado para filtrar dados de uma lista, ou seja, 
+criar uma nova lista contendo apenas os elementos que atendem a uma determinada condição.'''
+
+# Por exemplo, se você quiser criar uma nova lista contendo apenas os números pares de uma lista original, pode usar a seguinte list comprehension:
+
+lista_original = []
+numeros_pares = [x for x in lista_original if x % 2 == 0]
+
+# > Nesse caso, a nova lista numeros_pares conterá apenas os elementos da lista_original que são divisíveis por 2, ou seja, os números pares.
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Funções de Ordem Superior 📌
+
+''' Funções que retornam outras funções são chamadas de funções de ordem superior.'''
+
+def criar_funcao(mensagem):
+    def exibir_mensagem():
+        print(mensagem)
+    return exibir_mensagem
+
+minha_funcao = criar_funcao("Olá, mundo!")
+minha_funcao()  # Saída: Olá, mundo!
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Funções de Primeira Classe 📌
+
+''' As funções em Python são de primeira classe, o que significa que elas podem ser atribuídas a variáveis, 
+passadas como argumentos para outras funções e retornadas como resultados de outras funções.'''
+
+def aplicar_funcao(func, argumento):
+    return func(argumento)
+
+def dobrar(numero):
+    return numero * 2
+
+resultado = aplicar_funcao(dobrar, 5)
+print(resultado)  # Saída: 10
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Import, From, As e '*' 📌
+
+# Import, from, as e * são palavras-chave usadas para gerenciar módulos e pacotes.
+
+# > import é usado para importar um módulo completo ou um pacote específico no código:
+import sys
+
+# > from é usado para importar um objeto específico (função, classe ou variável) de um módulo ou pacote:
+from sys import exit
+
+# > as é usado para renomear um módulo ou objeto importado para um nome mais conveniente: 
+import sys as s
+
+# > '*' é usado para importar todos os objetos de um módulo ou pacote, mas é geralmente considerado uma prática ruim, 
+# pois pode poluir o espaço de nomes do programa e dificultar a leitura e manutenção do código:
+from sys import *
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Isininstance 📌
+
+# Isinstance é uma função embutida do Python que permite verificar se um objeto é de um determinado tipo.
+
+# Por exemplo, para verificar se uma variável x é uma lista, você pode usar o seguinte código:
+
+x = [1, 2, 3]
+if isinstance(x, list):
+    print("x é uma lista")
+else:
+    print("x não é uma lista")
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Iterável, Iterator e Generator 📌 
+
+'''Um iterável é qualquer objeto que pode ser percorrido por um loop for. 
+Exemplos de iteráveis incluem listas, tuplas, strings, dicionários e conjuntos. 
+Esses objetos fornecem um método __iter__() que retorna um iterador, que é usado para percorrer o iterável.
+
+Um iterator é um objeto que produz valores um de cada vez. Ele implementa dois métodos: __next__() e __iter__().
+O método __next__() retorna o próximo valor do iterator e levanta a exceção StopIteration quando não há mais valores para serem produzidos. 
+O método __iter__() retorna o próprio iterator. '''
+
+''' Uma generator expression é uma sintaxe compacta para criar um objeto generator em uma única linha de código. 
+É semelhante a uma list comprehension, mas em vez de criar uma lista, cria um objeto generator.'''
+
+#Por exemplo, a seguinte generator expression cria um generator que produz o quadrado de cada número par em uma lista:
+
+numeros = [1, 2, 3, 4, 5]
+quadrados_pares = (x**2 for x in numeros if x % 2 == 0)
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Kwargs 📌
+
+''' **kwargs é usado para passar um número variável de argumentos nomeados para uma função.'''
+
+def minha_funcao(**kwargs):
+    for chave, valor in kwargs.items():
+        print(chave, valor)
+
+minha_funcao(nome="João", idade=25)  # Saída: nome João, idade 25
+minha_funcao(cor="verde", tamanho="grande", material="algodão")  # Saída: cor verde, tamanho grande, material algodão
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# 📌 Lambda 📌
+
+# Uma lambda é uma função anônima que pode ser definida em uma única linha de código e não precisa de um nome associado a ela.
+
+# A sintaxe para definir uma lambda em Python é a seguinte:
+
+lambda argumentos: None
+
+# > Onde argumentos é uma lista separada por vírgulas de parâmetros que a função espera receber, e None é o resultado que a função deve retornar.
+
+# Por exemplo, se você quiser definir uma função que recebe um número como entrada e retorna o dobro desse número, você poderia fazê-lo com a seguinte lambda:
+
+dobro = lambda x: x * 2
+
+# Agora você pode chamar essa função dobro passando um número como argumento e ela retornará o dobro desse número:
+
+resultado = dobro(3)
+print(resultado)  # Saída: 6'''
+
+'''As lambdas também podem ser usadas como argumentos de outras funções, como no caso da função map(),
+ que aplica uma função a cada elemento de uma sequência e retorna uma nova sequência com os resultados:'''
+
+numeros = [1, 2, 3, 4, 5]
+dobro = lambda x: x * 2
+resultado = map(dobro, numeros)
+print(list(resultado))  # Saída: [2, 4, 6, 8, 10]
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 📌 List Comprehension 📌
@@ -315,86 +333,58 @@ e letras de 'a' a 'c', pode fazer o seguinte: '''
 combinacoes = [(x, y) for x in range(3) for y in ['a', 'b', 'c']]
 
 # > Nesse caso, a list comprehension cria uma nova lista combinacoes contendo todas as combinações possíveis de números de 0 a 2 e letras de 'a' a 'c'.
-
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📌 Filtro de Dados em List Comprehension 📌
+# 📌 NoneType 📌
 
-''' List comprehension também pode ser usado para filtrar dados de uma lista, ou seja, 
-criar uma nova lista contendo apenas os elementos que atendem a uma determinada condição.'''
+''' None é frequentemente usado para indicar que um valor não foi especificado
+ou que um objeto não possui um valor apropriado.'''
 
-# Por exemplo, se você quiser criar uma nova lista contendo apenas os números pares de uma lista original, pode usar a seguinte list comprehension:
-
-lista_original = []
-numeros_pares = [x for x in lista_original if x % 2 == 0]
-
-# > Nesse caso, a nova lista numeros_pares conterá apenas os elementos da lista_original que são divisíveis por 2, ou seja, os números pares.
-
+def minha_funcao(a, b=None):
+    if b is not None:
+        return a + b
+    else:
+        return a
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📌 Dict e Set Comprehension 📌
+# 📌 Raise 📌
 
-''' Além de list comprehension, Python também suporta dicionário e set comprehension, que são construções semelhantes à list comprehension, 
-mas que criam dicionários e conjuntos em vez de listas.'''
+''' Raise é uma palavra-chave usada para levantar ou lançar uma exceção explicitamente durante a execução de um programa. 
+Quando um erro ou condição excepcional é encontrada em uma parte do código, o programador pode usar a declaração raise para interromper o fluxo normal
+do programa e indicar que algo deu errado.'''
 
-# Por exemplo, se você quiser criar um dicionário contendo o quadrado de cada número de uma lista, pode usar a seguinte dicionário comprehension:
-
-numeros = [1, 2, 3, 4, 5]
-quadrados = {x: x**2 for x in numeros}
-
-# > Nesse caso, o novo dicionário quadrados terá chaves correspondentes aos elementos da lista numeros e valores correspondentes aos quadrados desses elementos.
-
-# Já em set comprehension se você quiser criar um conjunto contendo apenas os números pares de uma lista, pode usar a seguinte set comprehension:
-
-numeros = [1, 2, 3, 4, 5]
-numeros_pares = {x for x in numeros if x % 2 == 0}
-
-# > Nesse caso, o novo conjunto numeros_pares conterá apenas os elementos da sequência que são divisíveis por 2, ou seja, os números pares.
-
+# Sua sintaxe básica é: 
+# > raise [tipo_de_exceção]
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📌 Isininstance 📌
+# 📌 Tipo Set e suas Peculiaridades 📌
 
-# Isinstance é uma função embutida do Python que permite verificar se um objeto é de um determinado tipo.
+''' Em Python, um set é um tipo de coleção de elementos únicos e não ordenados. Um conjunto é criado usando chaves {} ou a função set() e pode conter elementos de 
+qualquer tipo imutável, como números, strings e tuplas. O tipo set é mutável, o que significa que você pode adicionar, remover ou atualizar elementos em um conjunto.'''
 
-# Por exemplo, para verificar se uma variável x é uma lista, você pode usar o seguinte código:
+''' Algumas peculiaridades do tipo set em Python incluem:
 
-x = [1, 2, 3]
-if isinstance(x, list):
-    print("x é uma lista")
-else:
-    print("x não é uma lista")
+> O conjunto não mantém a ordem dos elementos, então você não pode acessar os elementos por índice.
 
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+> O conjunto não pode conter elementos duplicados, portanto, se você tentar adicionar um elemento que já está no conjunto, ele não será adicionado novamente.
 
-# 📌 Iterável, Iterator e Generator 📌 
+> Você pode realizar operações de conjunto, como união, interseção e diferença, usando operadores ou métodos (|, &, -).
 
-'''Um iterável é qualquer objeto que pode ser percorrido por um loop for. 
-Exemplos de iteráveis incluem listas, tuplas, strings, dicionários e conjuntos. 
-Esses objetos fornecem um método __iter__() que retorna um iterador, que é usado para percorrer o iterável.
+> O conjunto é bastante eficiente para testar se um elemento está presente nele, pois o Python usa uma tabela de hash para pesquisar o elemento.
 
-Um iterator é um objeto que produz valores um de cada vez. Ele implementa dois métodos: __next__() e __iter__().
-O método __next__() retorna o próximo valor do iterator e levanta a exceção StopIteration quando não há mais valores para serem produzidos. 
-O método __iter__() retorna o próprio iterator. '''
+> Você pode usar métodos como add(), remove(), discard(), pop() e clear() para adicionar, remover ou atualizar elementos em um conjunto.'''
 
-''' Uma generator expression é uma sintaxe compacta para criar um objeto generator em uma única linha de código. 
-É semelhante a uma list comprehension, mas em vez de criar uma lista, cria um objeto generator.'''
+# Cria um conjunto com alguns elementos
+meu_set = {1, 2, 3, "quatro", (5, 6)}
 
-#Por exemplo, a seguinte generator expression cria um generator que produz o quadrado de cada número par em uma lista:
+# Adiciona um novo elemento ao conjunto
+meu_set.add(7)
 
-numeros = [1, 2, 3, 4, 5]
-quadrados_pares = (x**2 for x in numeros if x % 2 == 0)
+# Remove um elemento do conjunto
+meu_set.remove(2)
 
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# 📌 Yield em Generator Functions 📌
-
-''' A palavra-chave 'yield' é usada em uma generator function para produzir valores um de cada vez. 
-Quando a instrução 'yield' é executada, ela retorna um valor para o chamador e "pausa" a execução da função. 
-Quando o chamador solicita o próximo valor, a execução da função é retomada a partir do ponto em que parou, 
-continuando até a próxima instrução 'yield'. Esse processo continua até que a função termine ou atinja uma instrução 'return'.
-'''
-
+# Imprime o conjunto resultante
+print(meu_set)
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 📌 Try, Except, Else e Finally 📌
@@ -407,38 +397,32 @@ continuando até a próxima instrução 'yield'. Esse processo continua até que
 > else: A palavra-chave else é usada para definir um bloco de código que é executado se nenhum exceção for gerada no bloco try.
 
 > finally: A palavra-chave finally é usada para definir um bloco de código que é sempre executado, independentemente de uma exceção ter sido gerada ou não.'''
-
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📌 Raise 📌
+# 📌 Valor Padrão 📌
 
-''' Raise é uma palavra-chave usada para levantar ou lançar uma exceção explicitamente durante a execução de um programa. 
-Quando um erro ou condição excepcional é encontrada em uma parte do código, o programador pode usar a declaração raise para interromper o fluxo normal
-do programa e indicar que algo deu errado.'''
+''' Um valor padrão é um valor que será usado para um parâmetro
+se nenhum valor for especificado quando a função for chamada.'''
 
-# Sua sintaxe básica é: 
-# > raise [tipo_de_exceção]
-
+def calcular_volume_comprimento(largura, altura, profundidade=10):
+    volume = largura * altura * profundidade
+    return volume
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 📌 Import, From, As e '*' 📌
+# 📌 Yield em Generator Functions 📌
 
-# Import, from, as e * são palavras-chave usadas para gerenciar módulos e pacotes.
-
-# > import é usado para importar um módulo completo ou um pacote específico no código:
-import sys
-
-# > from é usado para importar um objeto específico (função, classe ou variável) de um módulo ou pacote:
-from sys import exit
-
-# > as é usado para renomear um módulo ou objeto importado para um nome mais conveniente: 
-import sys as s
-
-# > '*' é usado para importar todos os objetos de um módulo ou pacote, mas é geralmente considerado uma prática ruim, 
-# pois pode poluir o espaço de nomes do programa e dificultar a leitura e manutenção do código:
-from sys import *
-
+''' A palavra-chave 'yield' é usada em uma generator function para produzir valores um de cada vez. 
+Quando a instrução 'yield' é executada, ela retorna um valor para o chamador e "pausa" a execução da função. 
+Quando o chamador solicita o próximo valor, a execução da função é retomada a partir do ponto em que parou, 
+continuando até a próxima instrução 'yield'. Esse processo continua até que a função termine ou atinja uma instrução 'return'.
+'''
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
